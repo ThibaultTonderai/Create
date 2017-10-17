@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<meta charset="UTF-8">
+	<title>Oefening 2 • Micro interactions: icons</title>
+
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" type="text/css" href="style/reset.css" />
+	<link rel="stylesheet" type="text/css" href="style/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="style/screen.css" />
+
+	<!-- GOOGLE FONT -->
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+</head>
+<body>
+	<main>
+		<div class="video__wrapper">
+			<!-- <video src="video/.mp4"></video> -->
+		</div>
+		<section class="player">
+			<span class="spacer"></span>
+
+			<i class="fa fa-random"></i>
+
+			<span class="spacer"></span>
+
+			<i class="fa fa-step-backward"></i>
+			<i class="fa fa-backward"></i>
+			<!-- <i class="fa fa-fast-backward"></i> -->
+			<i class="fa fa-play"></i>
+			<!-- <i class="fa fa-pause"></i> -->
+			<i class="fa fa-stop"></i>
+			<!-- <i class="fa fa-fast-forward"></i> -->
+			<i class="fa fa-forward"></i>
+			<i class="fa fa-step-forward"></i>
+
+			<span class="spacer"></span>
+
+			<i class="fa fa-volume-off"></i>
+
+			<span class="spacer"></span>
+
+			<i class="fa fa-compress"></i>
+			<i class="fa fa-expand"></i>
+
+			<span class="spacer"></span>
+
+			<h1 class="player__title">Videoplayer - iPlay &copy;</h1>
+		</section>
+	</main>
+
+	<script>
+		'use strict';
+		// Uitbreiding: als je vlot klaar bent, kan je de HTML5 video tag uit commentaar halen en met JS de events bekijken en de controls ook echt actief maken!
+
+		// Opmerking: Dit is geen super goede code, maar het is handig om vlot van start te kunnen gaan.
+		function addEvent( elementClass, videoEvent, videoElement ) {
+			var control = document.querySelector( elementClass );
+
+			control.addEventListener( 'click', function(){
+				var curEvent = new Function( videoEvent );
+				curEvent();
+				switch ( videoEvent ) {
+					case ( 'video.play()' ):
+						control.classList.remove( 'fa-play' );
+						control.classList.add( 'fa-pause' );
+						addEvent( '.fa-pause', 'video.pause()' );
+						break;
+
+					case ( 'video.pause()' ):
+						control.classList.remove( 'fa-pause' );
+						control.classList.add( 'fa-play' );
+						addEvent( '.fa-play', 'video.play()' );
+						break;
+
+					default:
+						break;
+				}
+			});
+		}
+		
+		if (document.querySelector( 'video' )) {
+			var video = document.querySelector( 'video' );
+			// Meer events: https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+			// TODO: Zoek een gewenst event op en link het met deze functie.
+			// TODO: Hoe kan je de video laten spelen en pauzeren met de spatiebalk 🤔?
+			addEvent( '.fa-play', 'video.play()' );
+		}
+	</script>
+
+</body>
+</html>
